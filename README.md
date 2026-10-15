@@ -5,6 +5,12 @@ every tool call and result is scored in one fast request, stale ones are
 dropped or truncated, everything kept stays verbatim. Also usable as an npm
 library.
 
+> **Fork note:** this fork adds [OpenRouter](https://openrouter.ai) support. Set
+> `OPENROUTER_API_KEY` (or paste an `sk-or-` key into the plugin's API key option)
+> and requests go to `https://openrouter.ai/api/v1/systemone`; TypeSafe keys keep
+> working as before. Override with the `baseUrl` option or `JEV_BASE_URL`.
+> Upstream: [tamaratran/fast-jev-compaction](https://github.com/tamaratran/fast-jev-compaction).
+
 ## What and why
 
 Most context compaction asks an LLM to summarize old turns. A summary is

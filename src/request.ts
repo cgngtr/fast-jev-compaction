@@ -1,7 +1,14 @@
 import type { JevAnswer, JevQuestions, JevResponse, JevState } from './types.js';
 
 export const SYSTEM_ONE_URL = 'https://api.typesafe.ai/v1/systemone';
+export const OPENROUTER_SYSTEM_ONE_URL = 'https://openrouter.ai/api/v1/systemone';
 export const DEFAULT_MODEL = 'jev-latest';
+
+/** OpenRouter keys start with `sk-or-`; those default to OpenRouter's System One endpoint. */
+export function resolveBaseUrl(apiKey: string, baseUrl?: string): string {
+  if (baseUrl) return baseUrl;
+  return apiKey.startsWith('sk-or-') ? OPENROUTER_SYSTEM_ONE_URL : SYSTEM_ONE_URL;
+}
 
 export interface JevRequest {
   url: string;
@@ -21,7 +28,7 @@ export function buildJevRequest(
   questions: JevQuestions,
 ): JevRequest {
   return {
-    url: params.baseUrl ?? SYSTEM_ONE_URL,
+    url: resolveBaseUrl(params.apiKey, params.baseUrl),
     method: 'POST',
     headers: {
       authorization: `Bearer ${params.apiKey}`,

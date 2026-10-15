@@ -6,8 +6,8 @@
   "userConfig": {
     "apiKey": {
       "type": "string",
-      "title": "TypeSafe API key",
-      "description": "TypeSafe API key. Leave unset to use TYPESAFE_API_KEY.",
+      "title": "OpenRouter or TypeSafe API key",
+      "description": "OpenRouter (sk-or-...) or TypeSafe API key. Leave unset to use OPENROUTER_API_KEY, then TYPESAFE_API_KEY.",
       "sensitive": true
     },
     "keepThreshold": {
@@ -52,10 +52,15 @@
       "description": "Characters of a tool result kept when Jev decides its full output is no longer needed; 0 keeps only the note.",
       "default": 300
     },
+    "baseUrl": {
+      "type": "string",
+      "title": "System One base URL",
+      "description": "Override the endpoint. Leave unset: sk-or- keys use https://openrouter.ai/api/v1/systemone, others https://api.typesafe.ai/v1/systemone."
+    },
     "model": {
       "type": "string",
       "title": "Jev model",
-      "description": "TypeSafe Jev model name.",
+      "description": "Jev model name.",
       "default": "jev-latest"
     }
   }

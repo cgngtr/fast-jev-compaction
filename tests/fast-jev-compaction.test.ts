@@ -431,3 +431,14 @@ describe('HTTP client', () => {
     ).rejects.toThrow(/TYPESAFE_API_KEY/);
   });
 });
+
+describe('resolveBaseUrl', () => {
+  it('routes sk-or- keys to OpenRouter and others to TypeSafe', async () => {
+    const { resolveBaseUrl, OPENROUTER_SYSTEM_ONE_URL, SYSTEM_ONE_URL } = await import('../src/request.js');
+    expect(resolveBaseUrl('sk-or-v1-abc')).toBe(OPENROUTER_SYSTEM_ONE_URL);
+    expect(resolveBaseUrl('ts_abc')).toBe(SYSTEM_ONE_URL);
+    expect(resolveBaseUrl('sk-or-v1-abc', 'https://proxy.example/v1/systemone')).toBe(
+      'https://proxy.example/v1/systemone',
+    );
+  });
+});
