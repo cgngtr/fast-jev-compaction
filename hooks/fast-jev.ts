@@ -245,10 +245,10 @@ async function getApiKey(
   config: HookConfig,
 ): Promise<string | undefined> {
   if (config.apiKey) return config.apiKey;
-  for (const name of KEY_NAMES) {
-    const fromEnv = await $.env.get(name);
-    if (fromEnv) return fromEnv;
-  }
+  const fromOpenRouter = await $.env.get('OPENROUTER_API_KEY');
+  if (fromOpenRouter) return fromOpenRouter;
+  const fromTypeSafe = await $.env.get('TYPESAFE_API_KEY');
+  if (fromTypeSafe) return fromTypeSafe;
   const settings = await $.settings.read();
   const env = settings['env'];
   if (env && typeof env === 'object') {
